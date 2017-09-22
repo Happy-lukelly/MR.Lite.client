@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Main\Service.csproj", "{9974CD5F-9E40-4C20-98B9-0F4CBC5775ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer", "Installer\Installer.csproj", "{D7B631B5-EBD0-400B-BAB9-F183EAC49FEB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9974CD5F-9E40-4C20-98B9-0F4CBC5775ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9974CD5F-9E40-4C20-98B9-0F4CBC5775ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9974CD5F-9E40-4C20-98B9-0F4CBC5775ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9974CD5F-9E40-4C20-98B9-0F4CBC5775ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7B631B5-EBD0-400B-BAB9-F183EAC49FEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7B631B5-EBD0-400B-BAB9-F183EAC49FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7B631B5-EBD0-400B-BAB9-F183EAC49FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7B631B5-EBD0-400B-BAB9-F183EAC49FEB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
