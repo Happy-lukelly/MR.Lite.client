@@ -46,16 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="form\show.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="MainProg.cs" />
+    <Compile Include="ServiceInstaller\Service.cs" />
+    <Compile Include="ServiceInstaller\ServiceAttribute.cs" />
+    <Compile Include="ServiceInstaller\ServiceHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="form\show.resx">
-      <DependentUpon>show.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="form\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
