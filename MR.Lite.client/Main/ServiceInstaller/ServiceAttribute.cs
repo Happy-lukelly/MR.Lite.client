@@ -19,7 +19,7 @@ namespace Main.ServiceInstaller
     /// 服务键值对集合中值的类型
     /// </summary>
     [AttributeUsage(validOn:AttributeTargets.All)]
-    public class KeyValueTypeAttribute : Attribute
+    public class ValueTypeAttribute : Attribute
     {
         public RegistryValueKind ValueType;
     }
