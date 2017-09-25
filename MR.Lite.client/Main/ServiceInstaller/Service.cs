@@ -46,6 +46,10 @@ namespace Main.ServiceInstaller
         [ValueType(ValueType = Microsoft.Win32.RegistryValueKind.DWord)]
         public ServiceType ServiceType { get; set; }
 
+        /// <summary>
+        /// 标准键之外的键集合
+        /// </summary>
+        public List<RegistryKeyInfo> AnotherKeys { get; }
         #endregion public property
 
         #region readonly filed
@@ -65,6 +69,7 @@ namespace Main.ServiceInstaller
         {
             this.ObjectName = objectName;
             this.ErrorControl = ErrorControl;
+            this.AnotherKeys = new List<RegistryKeyInfo>();
         }
         #endregion
     }

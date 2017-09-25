@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Win32;
 
 namespace Main.ServiceInstaller
 {
@@ -22,6 +23,11 @@ namespace Main.ServiceInstaller
         public Service GetService(string serviceName)
         {
             Service result = null;
+            RegistryKey rk = Registry.LocalMachine;
+            rk = rk.OpenSubKey("SYSTEM\\CurrentControlSet\\services",true);
+            rk.GetSubKeyNames();
+            RegistryKey Mysql =  rk.OpenSubKey("MySQL");
+            Mysql.GetValueNames();
             return result;
         }
 

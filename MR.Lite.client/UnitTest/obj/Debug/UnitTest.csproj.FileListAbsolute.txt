@@ -1,0 +1,9 @@
+D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\UnitTest\bin\Debug\UnitTest.dll
+D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\UnitTest\bin\Debug\UnitTest.pdb
+D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\UnitTest\bin\Debug\Main.exe
+D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\UnitTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\UnitTest\bin\Debug\Main.pdb
+D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\UnitTest\bin\Debug\zh-Hans\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\UnitTest\obj\Debug\UnitTest.csprojResolveAssemblyReference.cache
+D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\UnitTest\obj\Debug\UnitTest.dll
+D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\UnitTest\obj\Debug\UnitTest.pdb
