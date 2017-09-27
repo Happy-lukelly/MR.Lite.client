@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainProg.cs" />
-    <Compile Include="ServiceInstaller\RegistryKeyInfo.cs" />
     <Compile Include="ServiceInstaller\Service.cs" />
     <Compile Include="ServiceInstaller\ServiceAttribute.cs" />
     <Compile Include="ServiceInstaller\ServiceHelper.cs" />

@@ -17,34 +17,34 @@ namespace Main.ServiceInstaller
         /// 服务名称
         /// </summary>
         [KeyName(KeyName = "DisplayName")]
-        [ValueType(ValueType = Microsoft.Win32.RegistryValueKind.String)]
+        [ValueType(ValueType =  RegistryValueKind.String)]
         public string DisplayName { get; set; }
 
         /// <summary>
         /// 服务的描述
         /// </summary>
         [KeyName(KeyName = "Description")]
-        [ValueType(ValueType = Microsoft.Win32.RegistryValueKind.String)]
+        [ValueType(ValueType =  RegistryValueKind.String)]
         public string Description { get; set; }
 
         /// <summary>
         /// 服务程序路径(执行字符串)
         /// </summary>
         [KeyName(KeyName = "ImagePath")]
-        [ValueType(ValueType = Microsoft.Win32.RegistryValueKind.MultiString)]
+        [ValueType(ValueType =  RegistryValueKind.MultiString)]
         public string ImagePath { get; set; }
 
         /// <summary>
         /// 启动类型
         /// </summary>
         [KeyName(KeyName = "Start")]
-        [ValueType(ValueType = Microsoft.Win32.RegistryValueKind.DWord)]
+        [ValueType(ValueType =  RegistryValueKind.DWord)]
         public StartType StartType { get; set; }
         /// <summary>
         /// 服务程序类型
         /// </summary>
         [KeyName(KeyName = "Type")]
-        [ValueType(ValueType = Microsoft.Win32.RegistryValueKind.DWord)]
+        [ValueType(ValueType =  RegistryValueKind.DWord)]
         public ServiceType ServiceType { get; set; }
 
         /// <summary>
@@ -56,10 +56,11 @@ namespace Main.ServiceInstaller
         #region readonly filed
         //登录账户
         [KeyName(KeyName = "ObjectName")]
-        [ValueType(ValueType = Microsoft.Win32.RegistryValueKind.String)]
+        [ValueType(ValueType =  RegistryValueKind.String)]
         public string ObjectName { get; private set; }
 
-        [KeyName()]
+        [KeyName(KeyName = "ErrorControl")]
+        [ValueType(ValueType = RegistryValueKind.DWord)]
         //错误控制
         public ErrorControl ErrorControl { get; private set; }
         #endregion

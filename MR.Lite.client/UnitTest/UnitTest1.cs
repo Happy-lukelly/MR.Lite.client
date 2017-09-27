@@ -14,10 +14,10 @@ namespace UnitTest
         public void TestMethod1()
         {
             ServiceHelper helper = new ServiceHelper();
-            helper.GetService("test");
+            helper.GetService("WSearch");
         }
         [TestMethod]
-        public void Test()
+        public void TestRefl()
         {
             TestClass test = new TestClass();
             Stopwatch sw = new Stopwatch();
