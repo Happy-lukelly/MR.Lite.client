@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WindowsForm\TipsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WindowsForm\TipsWindow.Designer.cs">
+      <DependentUpon>TipsWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainProg.cs" />
     <Compile Include="ServiceInstaller\Service.cs" />
     <Compile Include="ServiceInstaller\ServiceAttribute.cs" />
@@ -53,7 +59,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="form\" />
+    <EmbeddedResource Include="WindowsForm\TipsWindow.resx">
+      <DependentUpon>TipsWindow.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

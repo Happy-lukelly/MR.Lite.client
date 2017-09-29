@@ -51,6 +51,18 @@ namespace Main.ServiceInstaller
         public bool InstallService(Service service)
         {
             bool result = false;
+            RegistryKey rk = Registry.LocalMachine;
+            rk = rk.OpenSubKey("SYSTEM\\CurrentControlSet\\services", true);
+            if (IsServiceExist(service.Name))
+            {
+                throw new Exception("specified service name are exist");
+            }
+            else
+            {
+                RegistryKey serviceKey = rk.CreateSubKey(service.Name);
+                InstallService(serviceKey, service);
+                result = true;
+            }
             return result;
         }
 
@@ -100,7 +112,13 @@ namespace Main.ServiceInstaller
                     //刷新至系统
                     if (serviceKey.GetValueKind(valueName) == valueKind)
                     {
-                        serviceKey.SetValue(valueName, value);
+                        //做类型转换
+                        object writeToTableValue = value;
+                        if (value.GetType().IsEnum)
+                        {
+                            writeToTableValue = (int)value;
+                        }
+                        serviceKey.SetValue(valueName, writeToTableValue,valueKind);
                     }
                     else
                     {
@@ -147,7 +165,7 @@ namespace Main.ServiceInstaller
             {
                 RegistryKey rk = Registry.LocalMachine;
                 rk = rk.OpenSubKey("SYSTEM\\CurrentControlSet\\services", true);
-                RegistryKey serviceKey = rk.OpenSubKey(service.Name,true);
+                RegistryKey serviceKey = rk.OpenSubKey(service.Name, true);
                 string[] valueNames = serviceKey.GetValueNames();
                 var existKey = (from key in valueNames
                                 where key == addKeyInfo.Name
@@ -218,10 +236,10 @@ namespace Main.ServiceInstaller
                     if (property != null)
                     {
                         //属性是枚举类型
-                        if (property.GetType().IsEnum)
+                        if (property.PropertyType.IsEnum)
                         {
                             int intValue = int.Parse(k.Value.ToString());
-                            object enumValue = Enum.Parse(property.GetType(), intValue.ToString(), true);
+                            object enumValue = Enum.Parse(property.PropertyType, intValue.ToString(), true);
                             property.SetValue(service, enumValue);
                         }
                         else
@@ -262,7 +280,36 @@ namespace Main.ServiceInstaller
             return service;
         }
 
+        /// <summary>
+        /// 安装服务
+        /// </summary>
+        /// <param name="serviceKey"></param>
+        /// <param name="service"></param>
+        private void InstallService(RegistryKey serviceKey, Service service)
+        {
+            PropertyInfo[] allProperty = service.GetType().GetProperties();
 
+            var attributedProp = from prop in allProperty
+                                 where prop.GetCustomAttribute(typeof(KeyNameAttribute)) != null
+                                 select prop;
+            List<Service.RegistryKeyInfo> allValueInfo = new List<Service.RegistryKeyInfo>();
+            //取到所有value值信息
+            allValueInfo.AddRange(service.AnotherKeys);
+            foreach (var prop in attributedProp)
+            {
+                if (prop.GetValue(service) != null)
+                {
+                    object value = prop.GetValue(service);
+                    string name = (prop.GetCustomAttribute(typeof(KeyNameAttribute)) as KeyNameAttribute).KeyName;
+                    RegistryValueKind kind = (prop.GetCustomAttribute(typeof(ValueTypeAttribute)) as ValueTypeAttribute).ValueType;
+                    allValueInfo.Add(new Service.RegistryKeyInfo() { Name = name, Value = value, KeyKind = kind });
+                }
+            }
+            foreach (var valueInfo in allValueInfo)
+            {
+                AddKeyToService(service, valueInfo);
+            }
+        }
         #endregion
 
     }

@@ -25,14 +25,14 @@ namespace Main.ServiceInstaller
         /// 服务的描述
         /// </summary>
         [KeyName(KeyName = "Description")]
-        [ValueType(ValueType = RegistryValueKind.String)]
+        [ValueType(ValueType = RegistryValueKind.ExpandString)]
         public string Description { get; set; }
 
         /// <summary>
         /// 服务程序路径(执行字符串)
         /// </summary>
         [KeyName(KeyName = "ImagePath")]
-        [ValueType(ValueType = RegistryValueKind.MultiString)]
+        [ValueType(ValueType = RegistryValueKind.ExpandString)]
         public string ImagePath { get; set; }
 
         /// <summary>
@@ -166,11 +166,11 @@ namespace Main.ServiceInstaller
         /// <summary>
         /// 应用程序
         /// </summary>
-        Application = 1,
+        Application = 0x10,
         /// <summary>
         /// 其他
         /// </summary>
-        Other = 2
+        Other = 0x20
     }
 
     /// <summary>

@@ -125,6 +125,21 @@ namespace UnitTest
                 }
             }
         }
+
+        [TestMethod]
+        //测试 安装服务
+        public void TestInstallService()
+        {
+            ServiceHelper helper = new ServiceHelper();
+            string ImagePath = @"D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\TestService\bin\Debug\TestService.exe";
+            Service service = new Service();
+            service.ImagePath = ImagePath;
+            service.DisplayName = "test";
+            service.Name = "test";
+            service.StartType = StartType.Auto;
+            service.ServiceType = ServiceType.Application;
+            bool result =helper.InstallService(service);
+        }
     }
 
     public class TestClass
