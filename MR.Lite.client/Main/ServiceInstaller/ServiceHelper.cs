@@ -16,6 +16,7 @@ namespace Main.ServiceInstaller
         }
         #endregion
 
+        #region Public Method
         /// <summary>
         /// 返回指定名称的服务，或者返回null 若服务不存在
         /// </summary>
@@ -32,6 +33,7 @@ namespace Main.ServiceInstaller
                 if (serviceKey != null)
                 {
                     result = GetServiceByRegistryKey(serviceKey);
+                    result.Name = serviceName;
                 }
                 return result;
             }
@@ -41,6 +43,136 @@ namespace Main.ServiceInstaller
             }
         }
 
+        /// <summary>
+        /// 向系统中注册指定的服务
+        /// </summary>
+        /// <param name="service">要注册到系统中的服务</param>
+        /// <returns></returns>
+        public bool InstallService(Service service)
+        {
+            bool result = false;
+            return result;
+        }
+
+        /// <summary>
+        /// 查看指定服务名称是否存在
+        /// </summary>
+        /// <param name="ServiceName">要查看是否存在的服务名(PS:一定是SrerviceName而不是DisplayName)</param>
+        /// <returns></returns>
+        public bool IsServiceExist(string serviceName)
+        {
+            bool result = false;
+            try
+            {
+                Service service = GetService(serviceName);
+                if (service != null)
+                {
+                    result = true;
+                }
+            }
+            catch (Exception e)
+            {
+                if (e.Message == "Servcie Name Illegal")
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 修改指定服务中指定键对应的值(自行确保值类型安全),并返回修改过的注册表中映射的service对象
+        /// </summary>
+        /// <param name="service">要修改的服务</param>
+        /// <param name="valueName">要修改的键的名称</param>
+        /// <param name="value">要修改的值</param>
+        /// <returns></returns>
+        public Service ChangeServiceValue(Service service, string valueName, RegistryValueKind valueKind, object value)
+        {
+            if (IsServiceExist(service.Name))
+            {
+                RegistryKey rk = Registry.LocalMachine;
+                rk = rk.OpenSubKey("SYSTEM\\CurrentControlSet\\services", true);
+                RegistryKey serviceKey = rk.OpenSubKey(service.Name, true);
+                string[] valueNames = serviceKey.GetValueNames();
+                if (valueNames.Contains(valueName))
+                {
+                    //刷新至系统
+                    if (serviceKey.GetValueKind(valueName) == valueKind)
+                    {
+                        serviceKey.SetValue(valueName, value);
+                    }
+                    else
+                    {
+                        throw new Exception("specified value kind different with local system exist");
+                    }
+                    //修改要返回的对象
+                    if (service.GetAllKeyName().Contains(valueName))
+                    {
+                        PropertyInfo property = (from pro in service.GetType().GetProperties()
+                                                 where pro.GetCustomAttribute(typeof(KeyNameAttribute)) != null
+                                                 && (pro.GetCustomAttribute(typeof(KeyNameAttribute)) as KeyNameAttribute).KeyName == valueName
+                                                 select pro).FirstOrDefault();
+                        if (property != null)
+                        {
+                            property.SetValue(service, value);
+                        }
+                    }
+                    else
+                    {
+                        service.AnotherKeys.Add(new Service.RegistryKeyInfo() { Name = valueName, KeyKind = valueKind, Value = value });
+                    }
+                }
+                else
+                {
+                    throw new Exception("KeyName Not Exisit,Please ensure the key added in specified service");
+                }
+            }
+            else
+            {
+                throw new Exception("specified service not regisiter in the system");
+            }
+            return service;
+        }
+
+        /// <summary>
+        /// 将指定的键值添加到服务中,并返回修改过的注册表中映射的service对象
+        /// </summary>
+        /// <param name="Service">要添加的服务</param>
+        /// <param name="AddKeyInfo">添加的键值对</param>
+        /// <returns></returns>
+        public Service AddKeyToService(Service service, Service.RegistryKeyInfo addKeyInfo)
+        {
+            if (IsServiceExist(service.Name))
+            {
+                RegistryKey rk = Registry.LocalMachine;
+                rk = rk.OpenSubKey("SYSTEM\\CurrentControlSet\\services", true);
+                RegistryKey serviceKey = rk.OpenSubKey(service.Name,true);
+                string[] valueNames = serviceKey.GetValueNames();
+                var existKey = (from key in valueNames
+                                where key == addKeyInfo.Name
+                                select key).FirstOrDefault();
+                if (existKey != null)
+                {
+                    throw new Exception("specified name key are exisit in service");
+                }
+                else
+                {
+                    //添加进系统注册表
+                    serviceKey.SetValue(addKeyInfo.Name, addKeyInfo.Value, addKeyInfo.KeyKind);
+                    //修改新添加的值
+                    service = ChangeServiceValue(service, addKeyInfo.Name, addKeyInfo.KeyKind, addKeyInfo.Value);
+                }
+            }
+            else
+            {
+                throw new Exception("specified service not regisiter in the system");
+            }
+            return service;
+        }
+        #endregion
+
+        #region Private Method
         /// <summary>
         /// 根据指定的服务的注册表键获取服务信息
         /// </summary>
@@ -81,8 +213,8 @@ namespace Main.ServiceInstaller
                                                        Info.Name == (property.GetCustomAttributes(typeof(KeyNameAttribute)).FirstOrDefault() as KeyNameAttribute).KeyName)
                                                        select Info).FirstOrDefault();*/
                     PropertyInfo property = (from pro in properties
-                                            where ((pro.GetCustomAttributes(typeof(KeyNameAttribute)).FirstOrDefault() as KeyNameAttribute))!=null && (pro.GetCustomAttributes(typeof(KeyNameAttribute)).FirstOrDefault() as KeyNameAttribute).KeyName == k.Name
-                                            select pro).FirstOrDefault();
+                                             where ((pro.GetCustomAttributes(typeof(KeyNameAttribute)).FirstOrDefault() as KeyNameAttribute)) != null && (pro.GetCustomAttributes(typeof(KeyNameAttribute)).FirstOrDefault() as KeyNameAttribute).KeyName == k.Name
+                                             select pro).FirstOrDefault();
                     if (property != null)
                     {
                         //属性是枚举类型
@@ -130,16 +262,9 @@ namespace Main.ServiceInstaller
             return service;
         }
 
-        /// <summary>
-        /// 向系统中注册指定的服务
-        /// </summary>
-        /// <param name="service">要注册到系统中的服务</param>
-        /// <returns></returns>
-        public bool InstallService(Service service)
-        {
-            bool result = false;
-            return result;
-        }
+
+        #endregion
+
     }
 
 }

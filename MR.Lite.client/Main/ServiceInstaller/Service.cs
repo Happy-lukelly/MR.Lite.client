@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
+using System.Reflection;
 
 namespace Main.ServiceInstaller
 {
@@ -12,41 +13,45 @@ namespace Main.ServiceInstaller
     /// </summary>
     public class Service
     {
-        #region
+        #region Property
         /// <summary>
         /// 服务名称
         /// </summary>
         [KeyName(KeyName = "DisplayName")]
-        [ValueType(ValueType =  RegistryValueKind.String)]
+        [ValueType(ValueType = RegistryValueKind.String)]
         public string DisplayName { get; set; }
 
         /// <summary>
         /// 服务的描述
         /// </summary>
         [KeyName(KeyName = "Description")]
-        [ValueType(ValueType =  RegistryValueKind.String)]
+        [ValueType(ValueType = RegistryValueKind.String)]
         public string Description { get; set; }
 
         /// <summary>
         /// 服务程序路径(执行字符串)
         /// </summary>
         [KeyName(KeyName = "ImagePath")]
-        [ValueType(ValueType =  RegistryValueKind.MultiString)]
+        [ValueType(ValueType = RegistryValueKind.MultiString)]
         public string ImagePath { get; set; }
 
         /// <summary>
         /// 启动类型
         /// </summary>
         [KeyName(KeyName = "Start")]
-        [ValueType(ValueType =  RegistryValueKind.DWord)]
+        [ValueType(ValueType = RegistryValueKind.DWord)]
         public StartType StartType { get; set; }
         /// <summary>
         /// 服务程序类型
         /// </summary>
         [KeyName(KeyName = "Type")]
-        [ValueType(ValueType =  RegistryValueKind.DWord)]
+        [ValueType(ValueType = RegistryValueKind.DWord)]
         public ServiceType ServiceType { get; set; }
 
+        /// <summary>
+        /// 服务名称
+        /// </summary>
+        public string Name { get; set; }
         /// <summary>
         /// 标准键之外的键集合
         /// </summary>
@@ -56,7 +61,7 @@ namespace Main.ServiceInstaller
         #region readonly filed
         //登录账户
         [KeyName(KeyName = "ObjectName")]
-        [ValueType(ValueType =  RegistryValueKind.String)]
+        [ValueType(ValueType = RegistryValueKind.String)]
         public string ObjectName { get; private set; }
 
         [KeyName(KeyName = "ErrorControl")]
@@ -75,6 +80,7 @@ namespace Main.ServiceInstaller
         }
         #endregion
 
+        #region Innner Class
         /// <summary>
         /// 抽象的一个代表注册表键的值的Model
         /// </summary>
@@ -92,6 +98,39 @@ namespace Main.ServiceInstaller
             /// 值类型
             /// </summary>
             public RegistryValueKind KeyKind { get; set; }
+        }
+        #endregion
+                   
+        /// <summary>
+        /// 获取此服务声明的所有的键名
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetAllKeyName()
+        {
+            List<string> result = new List<string>();
+            foreach (RegistryKeyInfo info in AnotherKeys)
+            {
+                result.Add(info.Name);
+            }
+            PropertyInfo[] allProperties = this.GetType().GetProperties();
+            var customerAttrName = from property in allProperties
+                                   where property.GetCustomAttribute(typeof(KeyNameAttribute)) != null
+                                   select (property.GetCustomAttribute(typeof(KeyNameAttribute)) as KeyNameAttribute).KeyName;
+            result.AddRange(customerAttrName);
+            return result;
+        }
+
+        /// <summary>
+        /// 查看指定服务中指定的键是否存在
+        /// </summary>
+        /// <param name="ServiceName">指定的服务名称</param>
+        /// <param name="KeyName">指定的键的名称</param>
+        /// <returns></returns>
+        public bool IsServiceKeyExist(string serviceName, string keyName)
+        {
+            bool result = false;
+            result =GetAllKeyName().Contains(keyName);
+            return result;
         }
     }
 
