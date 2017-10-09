@@ -60,7 +60,16 @@ namespace Main.ServiceInstaller
             else
             {
                 RegistryKey serviceKey = rk.CreateSubKey(service.Name);
-                InstallService(serviceKey, service);
+                try
+                {
+                    InstallService(serviceKey, service);
+                }
+                finally
+                {
+                    rk.Close();
+                    serviceKey.Close();
+                }
+                
                 result = true;
             }
             return result;
@@ -112,13 +121,21 @@ namespace Main.ServiceInstaller
                     //刷新至系统
                     if (serviceKey.GetValueKind(valueName) == valueKind)
                     {
-                        //做类型转换
+                        //做类型转换k
                         object writeToTableValue = value;
                         if (value.GetType().IsEnum)
                         {
                             writeToTableValue = (int)value;
                         }
-                        serviceKey.SetValue(valueName, writeToTableValue,valueKind);
+                        try
+                        {
+                            serviceKey.SetValue(valueName, writeToTableValue, valueKind);
+                        }
+                        finally
+                        {
+                            rk.Close();
+                            serviceKey.Close();
+                        }
                     }
                     else
                     {
@@ -177,7 +194,15 @@ namespace Main.ServiceInstaller
                 else
                 {
                     //添加进系统注册表
-                    serviceKey.SetValue(addKeyInfo.Name, addKeyInfo.Value, addKeyInfo.KeyKind);
+                    try
+                    {
+                        serviceKey.SetValue(addKeyInfo.Name, addKeyInfo.Value, addKeyInfo.KeyKind);
+                    }
+                    finally
+                    {
+                        rk.Close();
+                        serviceKey.Close();
+                    }
                     //修改新添加的值
                     service = ChangeServiceValue(service, addKeyInfo.Name, addKeyInfo.KeyKind, addKeyInfo.Value);
                 }
@@ -187,6 +212,37 @@ namespace Main.ServiceInstaller
                 throw new Exception("specified service not regisiter in the system");
             }
             return service;
+        }
+
+        /// <summary>
+        /// 删除指定名称的服务
+        /// </summary>
+        /// <param name="serviceName">要删除的服务名称</param>
+        /// <exception cref="Exception">指定名称的服务不存在</exception>
+        /// <returns></returns>
+        public bool RemoveService(string serviceName)
+        {
+            bool result = false;
+            Service existService = GetService(serviceName);
+            if (existService == null)
+            {
+                throw new Exception("specified servcie name not exists in this system");
+            }
+            else
+            {
+                RegistryKey rk = Registry.LocalMachine;
+                rk = rk.OpenSubKey("SYSTEM\\CurrentControlSet\\services", true);
+                try
+                {
+                    rk.DeleteSubKeyTree(serviceName, true);
+                    result = true;
+                }
+                finally
+                {
+                    rk.Close();
+                }
+            }
+            return result;
         }
         #endregion
 
@@ -217,19 +273,6 @@ namespace Main.ServiceInstaller
                 //轮询子键信息集合根据特性描述赋值
                 foreach (Service.RegistryKeyInfo k in allSubKeyInfos)
                 {
-                    /*Service.RegistryKeyInfo keyInfo = (from Info in allSubKeyInfos
-                                                       join property in properties
-                                                       on 1 equals 1
-                                                       //应要短路不然会NRE
-                                                       where 
-                                                       ((property.GetCustomAttributes(typeof(ValueTypeAttribute)).FirstOrDefault() as ValueTypeAttribute) != null 
-                                                       && 
-                                                       Info.KeyKind == (property.GetCustomAttributes(typeof(ValueTypeAttribute)).FirstOrDefault() as ValueTypeAttribute).ValueType)
-                                                       && 
-                                                       ((property.GetCustomAttributes(typeof(KeyNameAttribute)).FirstOrDefault() as KeyNameAttribute)!=null   
-                                                       &&
-                                                       Info.Name == (property.GetCustomAttributes(typeof(KeyNameAttribute)).FirstOrDefault() as KeyNameAttribute).KeyName)
-                                                       select Info).FirstOrDefault();*/
                     PropertyInfo property = (from pro in properties
                                              where ((pro.GetCustomAttributes(typeof(KeyNameAttribute)).FirstOrDefault() as KeyNameAttribute)) != null && (pro.GetCustomAttributes(typeof(KeyNameAttribute)).FirstOrDefault() as KeyNameAttribute).KeyName == k.Name
                                              select pro).FirstOrDefault();
@@ -251,30 +294,6 @@ namespace Main.ServiceInstaller
                     {
                         service.AnotherKeys.Add(k);
                     }
-                    /*
-                    //与服务标准属性匹配成功
-                    if (keyInfo != null)
-                    {
-                        PropertyInfo property = (from pro in properties
-                                                 where (pro.GetCustomAttribute(typeof(KeyNameAttribute)) as KeyNameAttribute).KeyName == keyInfo.Name
-                                                 select pro).FirstOrDefault();
-                        //属性是枚举类型
-                        if (property.GetType().IsEnum)
-                        {
-                            int intValue = int.Parse(keyInfo.Value.ToString());
-                            object enumValue = Enum.Parse(property.GetType(), intValue.ToString(), true);
-                            property.SetValue(service, enumValue);
-                        }
-                        else
-                        {
-                            property.SetValue(service, keyInfo.Value);
-                        }
-                    }
-                    //不是Model中预定义的标准服务的键名称
-                    else
-                    {
-                        service.AnotherKeys.Add(keyInfo);
-                    }*/
                 }
             }
             return service;
