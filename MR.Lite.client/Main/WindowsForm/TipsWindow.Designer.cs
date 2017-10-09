@@ -1,4 +1,4 @@
-﻿namespace Main.WindowsForm
+﻿namespace Service.WindowsForm
 {
     partial class TipsWindow
     {

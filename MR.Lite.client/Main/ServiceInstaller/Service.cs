@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.Win32;
 using System.Reflection;
 
-namespace Main.ServiceInstaller
+namespace Service.ServiceInstaller
 {
     /// <summary>
     /// 代表一个服务的类
     /// </summary>
-    public class Service
+    public class SystemService
     {
         #region Property
         /// <summary>
@@ -71,8 +71,8 @@ namespace Main.ServiceInstaller
         #endregion
 
         #region Constructor
-        public Service() : this("LocalSystem", ErrorControl.Normal) { }
-        public Service(string objectName, ErrorControl errorControl)
+        public SystemService() : this("LocalSystem", ErrorControl.Normal) { }
+        public SystemService(string objectName, ErrorControl errorControl)
         {
             this.ObjectName = objectName;
             this.ErrorControl = ErrorControl;

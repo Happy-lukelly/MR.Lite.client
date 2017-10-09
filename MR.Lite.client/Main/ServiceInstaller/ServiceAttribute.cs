@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 
-namespace Main.ServiceInstaller
+namespace Service.ServiceInstaller
 {
     /// <summary>
     /// 服务键值对集合中键的名称

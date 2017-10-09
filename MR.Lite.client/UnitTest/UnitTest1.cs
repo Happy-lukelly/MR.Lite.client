@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Main.ServiceInstaller;
+using Service.ServiceInstaller;
 using System.Diagnostics;
 using System.Reflection;
 using Microsoft.Win32;
@@ -16,7 +16,7 @@ namespace UnitTest
         public void TestMethod1()
         {
             ServiceHelper helper = new ServiceHelper();
-            helper.GetService("WSearch");
+            SystemService result = helper.GetService("MySQL");
         }
         [TestMethod]
         //测试 反射缓存性能提升
@@ -82,7 +82,7 @@ namespace UnitTest
         //测试 服务是否存在方法单元测试  pass 
         public void TestServiceExist()
         {
-            string serviceName = "MySQL";
+            string serviceName = "WSearch";
             ServiceHelper helper = new ServiceHelper();
             bool result = helper.IsServiceExist(serviceName);
         }
@@ -92,12 +92,12 @@ namespace UnitTest
         public void TestChangeKeyValue()
         {
             ServiceHelper helper = new ServiceHelper();
-            Service MySQLService = helper.GetService("MySQL");
+            SystemService MySQLService = helper.GetService("MySQL");
             if (MySQLService != null)
             {
                 try
                 {
-                    Service newService = helper.ChangeServiceValue(MySQLService, "DisplayName", RegistryValueKind.String, "MySQL");
+                    SystemService newService = helper.ChangeServiceValue(MySQLService, "DisplayName", RegistryValueKind.String, "MySQL");
                 }
                 catch (Exception e)
                 {
@@ -111,12 +111,12 @@ namespace UnitTest
         public void TestAddKeyToService()
         {
             ServiceHelper helper = new ServiceHelper();
-            Service mysqlService = helper.GetService("MySQL");
+            SystemService mysqlService = helper.GetService("MySQL");
             if (mysqlService != null)
             {
                 try
                 {
-                    Service newService = helper.AddKeyToService(mysqlService, new Service.RegistryKeyInfo() { Name = "test", Value = "tttt", KeyKind = RegistryValueKind.String });
+                    SystemService newService = helper.AddKeyToService(mysqlService, new SystemService.RegistryKeyInfo() { Name = "test", Value = "tttt", KeyKind = RegistryValueKind.String });
 
                 }
                 catch (Exception e)
@@ -132,13 +132,23 @@ namespace UnitTest
         {
             ServiceHelper helper = new ServiceHelper();
             string ImagePath = @"D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\TestService\bin\Debug\TestService.exe";
-            Service service = new Service();
+            SystemService service = new SystemService();
             service.ImagePath = ImagePath;
             service.DisplayName = "test";
             service.Name = "test";
             service.StartType = StartType.Auto;
             service.ServiceType = ServiceType.Application;
             bool result =helper.InstallService(service);
+        }
+
+        /// <summary>
+        /// 测试  移除指定名称的服务
+        /// </summary>
+        [TestMethod]
+        public void RemoveService()
+        {
+            ServiceHelper helper = new ServiceHelper();
+            bool result = helper.RemoveService("test");
         }
     }
 

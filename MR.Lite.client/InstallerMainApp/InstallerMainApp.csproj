@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9974CD5F-9E40-4C20-98B9-0F4CBC5775ED}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{143FC75D-51DE-4E7E-8D44-BF1A6265FD94}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Service</RootNamespace>
-    <AssemblyName>Service</AssemblyName>
+    <RootNamespace>InstallerMainApp</RootNamespace>
+    <AssemblyName>InstallerMainApp</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -35,8 +37,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,30 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WindowsForm\NowServiceWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WindowsForm\NowServiceWindow.Designer.cs">
-      <DependentUpon>NowServiceWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WindowsForm\TipsWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WindowsForm\TipsWindow.Designer.cs">
-      <DependentUpon>TipsWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ServiceInstaller\Service.cs" />
-    <Compile Include="ServiceInstaller\ServiceAttribute.cs" />
-    <Compile Include="ServiceInstaller\ServiceHelper.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="WindowsForm\NowServiceWindow.resx">
-      <DependentUpon>NowServiceWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WindowsForm\TipsWindow.resx">
-      <DependentUpon>TipsWindow.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Main\Service.csproj">
+      <Project>{9974cd5f-9e40-4c20-98b9-0f4cbc5775ed}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

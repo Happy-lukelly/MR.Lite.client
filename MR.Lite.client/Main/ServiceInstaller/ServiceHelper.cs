@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Win32;
 using System.Reflection;
 
-namespace Main.ServiceInstaller
+namespace Service.ServiceInstaller
 {
     public class ServiceHelper
     {
@@ -22,11 +22,11 @@ namespace Main.ServiceInstaller
         /// </summary>
         /// <param name="serviceName">要查找的服务的名称</param>
         /// <returns></returns>
-        public Service GetService(string serviceName)
+        public SystemService GetService(string serviceName)
         {
             if (!string.IsNullOrWhiteSpace(serviceName))
             {
-                Service result = null;
+                SystemService result = null;
                 RegistryKey rk = Registry.LocalMachine;
                 rk = rk.OpenSubKey("SYSTEM\\CurrentControlSet\\services", true);
                 RegistryKey serviceKey = rk.OpenSubKey(serviceName);
@@ -48,7 +48,7 @@ namespace Main.ServiceInstaller
         /// </summary>
         /// <param name="service">要注册到系统中的服务</param>
         /// <returns></returns>
-        public bool InstallService(Service service)
+        public bool InstallService(SystemService service)
         {
             bool result = false;
             RegistryKey rk = Registry.LocalMachine;
@@ -85,7 +85,7 @@ namespace Main.ServiceInstaller
             bool result = false;
             try
             {
-                Service service = GetService(serviceName);
+                SystemService service = GetService(serviceName);
                 if (service != null)
                 {
                     result = true;
@@ -108,7 +108,7 @@ namespace Main.ServiceInstaller
         /// <param name="valueName">要修改的键的名称</param>
         /// <param name="value">要修改的值</param>
         /// <returns></returns>
-        public Service ChangeServiceValue(Service service, string valueName, RegistryValueKind valueKind, object value)
+        public SystemService ChangeServiceValue(SystemService service, string valueName, RegistryValueKind valueKind, object value)
         {
             if (IsServiceExist(service.Name))
             {
@@ -155,7 +155,7 @@ namespace Main.ServiceInstaller
                     }
                     else
                     {
-                        service.AnotherKeys.Add(new Service.RegistryKeyInfo() { Name = valueName, KeyKind = valueKind, Value = value });
+                        service.AnotherKeys.Add(new SystemService.RegistryKeyInfo() { Name = valueName, KeyKind = valueKind, Value = value });
                     }
                 }
                 else
@@ -176,7 +176,7 @@ namespace Main.ServiceInstaller
         /// <param name="Service">要添加的服务</param>
         /// <param name="AddKeyInfo">添加的键值对</param>
         /// <returns></returns>
-        public Service AddKeyToService(Service service, Service.RegistryKeyInfo addKeyInfo)
+        public SystemService AddKeyToService(SystemService service, SystemService.RegistryKeyInfo addKeyInfo)
         {
             if (IsServiceExist(service.Name))
             {
@@ -223,7 +223,7 @@ namespace Main.ServiceInstaller
         public bool RemoveService(string serviceName)
         {
             bool result = false;
-            Service existService = GetService(serviceName);
+            SystemService existService = GetService(serviceName);
             if (existService == null)
             {
                 throw new Exception("specified servcie name not exists in this system");
@@ -252,26 +252,26 @@ namespace Main.ServiceInstaller
         /// </summary>
         /// <param name="key">服务对应的</param>
         /// <returns></returns>
-        private Service GetServiceByRegistryKey(RegistryKey key)
+        private SystemService GetServiceByRegistryKey(RegistryKey key)
         {
-            Service service = null;
-            service = new Service();
+            SystemService service = null;
+            service = new SystemService();
             Type serviceType = service.GetType();
             PropertyInfo[] properties = serviceType.GetProperties();
             string[] valueNames = key.GetValueNames();
             //判断是否是存在子键
             if (valueNames != null && valueNames.Length > 0)
             {
-                List<Service.RegistryKeyInfo> allSubKeyInfos = new List<Service.RegistryKeyInfo>();
+                List<SystemService.RegistryKeyInfo> allSubKeyInfos = new List<SystemService.RegistryKeyInfo>();
                 //获取到所有的子健的信息
                 foreach (string subKeyName in valueNames)
                 {
                     RegistryValueKind kindType = key.GetValueKind(subKeyName);
                     object value = key.GetValue(subKeyName);
-                    allSubKeyInfos.Add(new Service.RegistryKeyInfo() { Name = subKeyName, KeyKind = kindType, Value = value });
+                    allSubKeyInfos.Add(new SystemService.RegistryKeyInfo() { Name = subKeyName, KeyKind = kindType, Value = value });
                 }
                 //轮询子键信息集合根据特性描述赋值
-                foreach (Service.RegistryKeyInfo k in allSubKeyInfos)
+                foreach (SystemService.RegistryKeyInfo k in allSubKeyInfos)
                 {
                     PropertyInfo property = (from pro in properties
                                              where ((pro.GetCustomAttributes(typeof(KeyNameAttribute)).FirstOrDefault() as KeyNameAttribute)) != null && (pro.GetCustomAttributes(typeof(KeyNameAttribute)).FirstOrDefault() as KeyNameAttribute).KeyName == k.Name
@@ -304,14 +304,14 @@ namespace Main.ServiceInstaller
         /// </summary>
         /// <param name="serviceKey"></param>
         /// <param name="service"></param>
-        private void InstallService(RegistryKey serviceKey, Service service)
+        private void InstallService(RegistryKey serviceKey, SystemService service)
         {
             PropertyInfo[] allProperty = service.GetType().GetProperties();
 
             var attributedProp = from prop in allProperty
                                  where prop.GetCustomAttribute(typeof(KeyNameAttribute)) != null
                                  select prop;
-            List<Service.RegistryKeyInfo> allValueInfo = new List<Service.RegistryKeyInfo>();
+            List<SystemService.RegistryKeyInfo> allValueInfo = new List<SystemService.RegistryKeyInfo>();
             //取到所有value值信息
             allValueInfo.AddRange(service.AnotherKeys);
             foreach (var prop in attributedProp)
@@ -321,7 +321,7 @@ namespace Main.ServiceInstaller
                     object value = prop.GetValue(service);
                     string name = (prop.GetCustomAttribute(typeof(KeyNameAttribute)) as KeyNameAttribute).KeyName;
                     RegistryValueKind kind = (prop.GetCustomAttribute(typeof(ValueTypeAttribute)) as ValueTypeAttribute).ValueType;
-                    allValueInfo.Add(new Service.RegistryKeyInfo() { Name = name, Value = value, KeyKind = kind });
+                    allValueInfo.Add(new SystemService.RegistryKeyInfo() { Name = name, Value = value, KeyKind = kind });
                 }
             }
             foreach (var valueInfo in allValueInfo)
