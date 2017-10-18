@@ -1,0 +1,5 @@
+D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\Task\bin\Debug\Task.dll
+D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\Task\bin\Debug\Task.pdb
+D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\Task\obj\Debug\Task.csprojResolveAssemblyReference.cache
+D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\Task\obj\Debug\Task.dll
+D:\yanyulong\WorkSpace\MR\MR.Lite.client\MR.Lite.client\Task\obj\Debug\Task.pdb

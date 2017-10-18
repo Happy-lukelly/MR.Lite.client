@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstallerMainApp", "Install
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task", "Task\Task.csproj", "{59E579BA-3ED6-439F-B066-83D303B1EBBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientExt", "ClientExt\ClientExt.csproj", "{A501D9D0-F44F-4639-8664-931E95F1C93A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{59E579BA-3ED6-439F-B066-83D303B1EBBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59E579BA-3ED6-439F-B066-83D303B1EBBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59E579BA-3ED6-439F-B066-83D303B1EBBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A501D9D0-F44F-4639-8664-931E95F1C93A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A501D9D0-F44F-4639-8664-931E95F1C93A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A501D9D0-F44F-4639-8664-931E95F1C93A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A501D9D0-F44F-4639-8664-931E95F1C93A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
