@@ -7,28 +7,34 @@ using System.Threading.Tasks;
 namespace Client.Model
 {
     /// <summary>
-    /// 客户端主程序的版本信息
+    /// 客户端主程序的版本信息(此类字段均为静态字段用来记录客户端主程序的版本信息)
     /// </summary>
-    class MainClientVersion
+    public class MainClientVersion
     {
+        private readonly Guid m_VersionSignature;
+        private readonly string m_Version;
+        private readonly DateTime m_UpdateTime;
+
         /// <summary>
         /// 版本签名
         /// </summary>
-        public static Guid VersionSignature { get; set;}
+        public  Guid VersionSignature { get { return m_VersionSignature; } }
 
         /// <summary>
         /// 版本号
         /// </summary>
-        public string Version { get; set; }
+        public  string Version { get { return m_Version; } }
 
         /// <summary>
         /// 版本更新时间
         /// </summary>
-        public DateTime UpdateTime { get; set; }
+        public  DateTime UpdateTime { get { return m_UpdateTime; } }
 
-        /// <summary>
-        /// 是否为当前使用版本
-        /// </summary>
-        public bool IsNowUseVersion { get; set; }
+        public MainClientVersion()
+        {
+            this.m_VersionSignature = new Guid();
+            this.m_Version = "version";
+            this.m_UpdateTime = DateTime.Now;
+        }
     }
 }

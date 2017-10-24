@@ -11,6 +11,5 @@ namespace ClientExt
     /// </summary>
     public class ClientExtMain
     {
-
     }
 }

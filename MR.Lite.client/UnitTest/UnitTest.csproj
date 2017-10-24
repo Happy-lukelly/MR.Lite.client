@@ -52,11 +52,32 @@
   <ItemGroup>
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UtilTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClientExt\ClientExt.csproj">
+      <Project>{a501d9d0-f44f-4639-8664-931e95f1c93a}</Project>
+      <Name>ClientExt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Client\Client.csproj">
+      <Project>{8a690f97-5d80-4109-a101-3315ad7a5ad4}</Project>
+      <Name>Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InstallerMainApp\InstallerMainApp.csproj">
+      <Project>{143fc75d-51de-4e7e-8d44-bf1a6265fd94}</Project>
+      <Name>InstallerMainApp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Main\Service.csproj">
       <Project>{9974cd5f-9e40-4c20-98b9-0f4cbc5775ed}</Project>
       <Name>Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Task\Task.csproj">
+      <Project>{59e579ba-3ed6-439f-b066-83d303b1ebbc}</Project>
+      <Name>Task</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{f2fd3862-ed76-4cf4-9a4d-20dee627bba7}</Project>
+      <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -5,6 +5,13 @@
 /MR.Lite.client/Client/obj/*
 /MR.Lite.client/InstallerMainApp/bin/*
 /MR.Lite.client/InstallerMainApp/obj/*
-*/bin/
-*/obj/
+/MR.Lite.client/ClientExt/bin/*
+/MR.Lite.client/ClientExt/obj/*
+/MR.Lite.client/Utils/bin/*
+/MR.Lite.client/Utils/obj/*
+/MR.Lite.client/packages/*
+/MR.Lite.client/Task/bin/*
+/MR.Lite.client/Task/obj/*
+*/bin/*
+*/obj/*
 

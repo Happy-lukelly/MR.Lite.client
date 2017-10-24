@@ -43,15 +43,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\CheckUpdate.cs" />
     <Compile Include="ClientMain.cs" />
     <Compile Include="Model\MainClientVersion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartUp.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClientExt\ClientExt.csproj">
+      <Project>{a501d9d0-f44f-4639-8664-931e95f1c93a}</Project>
+      <Name>ClientExt</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Task\Task.csproj">
       <Project>{59e579ba-3ed6-439f-b066-83d303b1ebbc}</Project>
       <Name>Task</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{f2fd3862-ed76-4cf4-9a4d-20dee627bba7}</Project>
+      <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

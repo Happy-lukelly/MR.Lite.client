@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Client.Model;
+using ClientExt.Model;
 
 namespace Client
 {
@@ -13,19 +14,17 @@ namespace Client
     class StartUp
     {
         /// <summary>
-        /// 是否是安装后的第一次运行
+        /// 检查主程的升级事件
         /// </summary>
-        public bool IsFirstRun { get; private set; }
+        public event Action<MainClientVersion> OnChechkMainProgUpdate;
+
         /// <summary>
-        /// 当前主程序版本
+        /// 检查主程扩展dll的升级事件
         /// </summary>
-        /// <returns></returns>
-        public virtual MainClientVersion GetNowUserClientVersion()
+        public event Action<ClientExtVersion> OnCheckClientExtUpdate;
+
+        public void StartService()
         {
-            MainClientVersion nowUsedVersion = new MainClientVersion();
-            return nowUsedVersion;
         }
-
-
     }
 }

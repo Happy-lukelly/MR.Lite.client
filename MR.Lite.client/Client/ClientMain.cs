@@ -9,9 +9,10 @@ namespace Client
     //客户端程序主类
     class ClientMain
     {
+        static StartUp startup = new StartUp();
+
         public static void Main(string[] args)
         {
-
         }
     }
 }
