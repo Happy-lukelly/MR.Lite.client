@@ -12,6 +12,8 @@
 /MR.Lite.client/packages/*
 /MR.Lite.client/Task/bin/*
 /MR.Lite.client/Task/obj/*
+/MR.Lite.client/UnitTest/obj/*
+/MR.Lite.client/UnitTest/bin/*
 */bin/*
 */obj/*
 
