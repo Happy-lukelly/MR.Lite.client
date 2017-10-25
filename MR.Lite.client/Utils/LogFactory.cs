@@ -12,7 +12,7 @@ namespace Utils
     /// <summary>
     /// 日志工厂
     /// </summary>
-    public  class LogFactory
+    class LogFactory
     {
         static Dictionary<string, LogImpl> nameLogRep = new Dictionary<string, LogImpl>();
         static Dictionary<Type, LogImpl> typeLogRep = new Dictionary<Type, LogImpl>();
@@ -34,7 +34,8 @@ namespace Utils
                 }
                 else
                 {
-                    LogImpl log = (LogImpl)LogManager.GetLogger(name);
+                    //根据仓库名称和名称获取Logger
+                    LogImpl log = (LogImpl)LogManager.GetLogger(name, name);
                     nameLogRep.Add(name, log);
                     return log;
                 }
@@ -56,11 +57,32 @@ namespace Utils
                 }
                 else
                 {
-                    LogImpl log = (LogImpl)LogManager.GetLogger(type);
-                    typeLogRep.Add(type,log);
+                    //根据仓库名称和名称获取Logger
+                    LogImpl log = (LogImpl)LogManager.GetLogger(type.ToString(), type);
+                    typeLogRep.Add(type, log);
                     return log;
                 }
             }
+        }
+
+        /// <summary>
+        /// 判断logger是否已缓存
+        /// </summary>
+        /// <param name="loggerName"></param>
+        /// <returns></returns>
+        public static bool IsLoggerExists(string loggerName)
+        {
+            return nameLogRep.ContainsKey(loggerName);
+        }
+
+        /// <summary>
+        /// 判断logger是否已缓存
+        /// </summary>
+        /// <param name="loggerType"></param>
+        /// <returns></returns>
+        public static bool IsLoggerExists(Type loggerType)
+        {
+            return typeLogRep.ContainsKey(loggerType);
         }
     }
 }

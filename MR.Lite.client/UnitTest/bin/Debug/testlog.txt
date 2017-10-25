@@ -9,3 +9,7 @@
 2017-10-24 16:57:12,533 [13]INFO  UnitTest.UtilTest - ffff
 2017-10-24 16:57:20,502 [15]ERROR test - error
 2017-10-24 16:57:20,510 [15]INFO  UnitTest.UtilTest - ffff
+2017-10-25 15:55:03,318 [12]ERROR test - error
+2017-10-25 15:55:06,244 [12]INFO  UnitTest.UtilTest - ffff
+2017-10-25 16:00:02,663 [13]ERROR test - error
+2017-10-25 16:00:02,671 [13]INFO  UnitTest.UtilTest - ffff

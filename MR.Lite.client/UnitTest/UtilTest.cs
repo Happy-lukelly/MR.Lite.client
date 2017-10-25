@@ -39,9 +39,14 @@ namespace UnitTest
         [TestMethod]
         public void LogTest()
         {
-            LogHelper logger = new NameLogger("test");
+            string baseDic = AppDomain.CurrentDomain.BaseDirectory;
+            string Name = System.IO.Path.Combine(baseDic, "log\\name\\name.txt");
+            string Type = System.IO.Path.Combine(baseDic, "log\\type\\name.txt");
+            FileLogHelper logger = new NameLogger("test",Name);
             logger.LogError("error");
-            LogHelper typeLogger = new TypeLogger(this.GetType());
+            FileLogHelper logger2 = new NameLogger("test", Name);
+            logger2.LogInfo("info");
+            FileLogHelper typeLogger = new TypeLogger(this.GetType(),Type);
             typeLogger.LogInfo("ffff");
         }
     }

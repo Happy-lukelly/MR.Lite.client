@@ -7,14 +7,17 @@ using log4net;
 
 namespace Utils
 {
-    public class TypeLogger:LogHelper
+    /// <summary>
+    /// 指定类型的文件方式记录的Logger
+    /// </summary>
+    public class TypeLogger: FileLogHelper
     {
         private Type m_type;
 
         public Type Type { get { return m_type; } }
         private ILog logger;
 
-        public TypeLogger(Type type)
+        public TypeLogger(Type type,string fileDic):base(type.ToString(),fileDic)
         {
             this.m_type = type;
             this.logger = LogFactory.getLoger(type);

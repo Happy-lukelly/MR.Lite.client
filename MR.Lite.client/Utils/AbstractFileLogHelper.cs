@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using log4net;
-using log4net.Config;
 
-
-[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
 namespace Utils
 {
-    public abstract class LogHelper
+    public abstract class AbstractFileLogHelper : IConfigAppender
     {
+        private string m_FileDic;
+
+        public string FileDic { get { return m_FileDic; } }
+        public AbstractFileLogHelper(string fileDic)
+        {
+            m_FileDic = fileDic;
+        }
+
         public abstract void LogInfo(string message);
         public abstract void LogError(string message);
         public abstract void LogWarn(string message);
@@ -28,5 +32,6 @@ namespace Utils
             this.LogWarn(e.StackTrace);
         }
 
+        public abstract void ConfigContextAppender();
     }
 }
