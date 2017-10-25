@@ -49,5 +49,13 @@ namespace UnitTest
             FileLogHelper typeLogger = new TypeLogger(this.GetType(),Type);
             typeLogger.LogInfo("ffff");
         }
+
+        [TestMethod]
+        public void ConfigTest()
+        {
+            Client.BLL.CheckUpdate checkupdate = new Client.BLL.CheckUpdate();
+            checkupdate.UpdateClientVersionConfig(new MainClientVersion());
+            MainClientVersion versionNow = checkupdate.GetNowClientVersion();
+        }
     }
 }
