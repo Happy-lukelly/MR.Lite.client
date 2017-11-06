@@ -28,7 +28,7 @@ namespace Service.ServiceInstaller
             {
                 SystemService result = null;
                 RegistryKey rk = Registry.LocalMachine;
-                rk = rk.OpenSubKey("SYSTEM\\CurrentControlSet\\services", true);
+                rk = rk.OpenSubKey("SYSTEM\\CurrentControlSet\\services", false);
                 RegistryKey serviceKey = rk.OpenSubKey(serviceName);
                 if (serviceKey != null)
                 {
