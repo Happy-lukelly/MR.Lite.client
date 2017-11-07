@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Client.Model;
+using Client.BLL;
 using ClientExt.Model;
 
 namespace Client
@@ -23,8 +24,18 @@ namespace Client
         /// </summary>
         public event Action<ClientExtVersion> OnCheckClientExtUpdate;
 
+        #region Constructor
+        public StartUp()
+        {
+            OnChechkMainProgUpdate += (MainClientVersion nowVersion) => { };
+            OnCheckClientExtUpdate += (ClientExtVersion nowVersion) => { };
+        }
+        #endregion
         public void StartService()
         {
+            CheckUpdate checkUpdate = new CheckUpdate();
+            MainClientVersion nowMainClientVersion = checkUpdate.GetNowClientVersion();
+            OnChechkMainProgUpdate?.Invoke(nowMainClientVersion);
         }
     }
 }
