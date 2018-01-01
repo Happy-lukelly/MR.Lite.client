@@ -53,7 +53,7 @@ namespace UnitTest
         [TestMethod]
         public void ConfigTest()
         {
-            Client.BLL.CheckUpdate checkupdate = new Client.BLL.CheckUpdate();
+            Client.BLL.VersionService checkupdate = new Client.BLL.VersionService();
             checkupdate.UpdateClientVersionConfig(new MainClientVersion());
             MainClientVersion versionNow = checkupdate.GetNowClientVersion();
         }

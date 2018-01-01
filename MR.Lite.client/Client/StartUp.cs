@@ -27,15 +27,15 @@ namespace Client
         #region Constructor
         public StartUp()
         {
-            OnChechkMainProgUpdate += (MainClientVersion nowVersion) => { };
-            OnCheckClientExtUpdate += (ClientExtVersion nowVersion) => { };
         }
         #endregion
         public void StartService()
         {
-            CheckUpdate checkUpdate = new CheckUpdate();
+            VersionService checkUpdate = new VersionService();
             MainClientVersion nowMainClientVersion = checkUpdate.GetNowClientVersion();
-            OnChechkMainProgUpdate?.Invoke(nowMainClientVersion);
+            OnChechkMainProgUpdate?.BeginInvoke(nowMainClientVersion,Isync =>{
+
+            },null);
         }
     }
 }

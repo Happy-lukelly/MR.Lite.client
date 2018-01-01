@@ -12,7 +12,7 @@ namespace Client.BLL
     /// <summary>
     /// 检查客户端主程升级的业务类
     /// </summary>
-    public class CheckUpdate
+    public class VersionService
     {
         /// <summary>
         /// 获取配置文件中当前主程的版本信息

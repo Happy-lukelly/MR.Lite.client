@@ -60,6 +60,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ServNetProtocol\IMessageReciver.cs" />
+    <Compile Include="ServNetProtocol\IMessageReciveReslover.cs" />
+    <Compile Include="ServNetProtocol\IMessageSendReslover.cs" />
+    <Compile Include="ServNetProtocol\IMessageSender.cs" />
+    <Compile Include="ServNetProtocol\MessageReciverFactory.cs" />
+    <Compile Include="ServNetProtocol\MessageSenderFactory.cs" />
+    <Compile Include="ServNetProtocol\Model\SessionInfo.cs" />
+    <Compile Include="ServNetProtocol\ProtocolImpl\MessageReciverReslover.cs" />
+    <Compile Include="ServNetProtocol\ProtocolImpl\MessageSender.cs" />
+    <Compile Include="ServNetProtocol\ProtocolImpl\MessageSenderReslover.cs" />
+    <Compile Include="ServNetProtocol\ProtocolImpl\MessageReciver.cs" />
+    <Compile Include="ServNetProtocol\SessionContext.cs" />
     <Compile Include="TypeLogger.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +84,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\CheckUpdate.cs" />
+    <Compile Include="BLL\VersionService.cs" />
     <Compile Include="ClientMain.cs" />
     <Compile Include="Model\MainClientVersion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
