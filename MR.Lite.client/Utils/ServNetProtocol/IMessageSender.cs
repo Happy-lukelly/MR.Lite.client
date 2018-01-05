@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils.ServNetProtocol.Model;
 
 namespace Utils.ServNetProtocol
 {
@@ -16,5 +17,18 @@ namespace Utils.ServNetProtocol
         /// </summary>
         /// <returns></returns>
         string GetSenderVersion();
+
+        /// <summary>
+        /// 发送一条消息
+        /// </summary>
+        /// <param name="LoadBytes">消息的负载信息</param>
+        void SendMessage(MessageInfo LoadBytes);
+
+        /// <summary>
+        /// 异步发送一条消息，并在消息发送完成后执行指定的回调方法
+        /// </summary>
+        /// <param name="loadBytes"></param>
+        /// <param name="callback"></param>
+        void AsyncSendMessage(MessageInfo loadBytes, Action callback);
     }
 }

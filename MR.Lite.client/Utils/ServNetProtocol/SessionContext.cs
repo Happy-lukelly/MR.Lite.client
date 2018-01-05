@@ -27,7 +27,7 @@ namespace Utils.ServNetProtocol
             this.m_ReciverFactory = reciveFactory;
         }
         
-        public 
         #endregion
+
     }
 }

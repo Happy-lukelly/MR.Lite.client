@@ -66,7 +66,10 @@
     <Compile Include="ServNetProtocol\IMessageSender.cs" />
     <Compile Include="ServNetProtocol\MessageReciverFactory.cs" />
     <Compile Include="ServNetProtocol\MessageSenderFactory.cs" />
+    <Compile Include="ServNetProtocol\Model\MessageInfo.cs" />
+    <Compile Include="ServNetProtocol\Model\SendMessgeInfo.cs" />
     <Compile Include="ServNetProtocol\Model\SessionInfo.cs" />
+    <Compile Include="ServNetProtocol\Model\StreamSendMessageInfo.cs" />
     <Compile Include="ServNetProtocol\ProtocolImpl\MessageReciverReslover.cs" />
     <Compile Include="ServNetProtocol\ProtocolImpl\MessageSender.cs" />
     <Compile Include="ServNetProtocol\ProtocolImpl\MessageSenderReslover.cs" />

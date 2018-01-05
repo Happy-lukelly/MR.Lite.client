@@ -16,5 +16,6 @@ namespace Utils.ServNetProtocol
         /// </summary>
         /// <returns></returns>
         string GetReciverVersion();
+
     }
 }

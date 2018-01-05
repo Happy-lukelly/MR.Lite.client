@@ -14,21 +14,27 @@ namespace Client.Model
         private readonly Guid m_VersionSignature;
         private readonly string m_Version;
         private readonly DateTime m_UpdateTime;
+        private readonly Guid m_MachineSignature;
 
         /// <summary>
         /// 版本签名
         /// </summary>
-        public  Guid VersionSignature { get { return m_VersionSignature; } }
+        public Guid VersionSignature { get { return m_VersionSignature; } }
 
         /// <summary>
         /// 版本号
         /// </summary>
-        public  string Version { get { return m_Version; } }
+        public string Version { get { return m_Version; } }
 
         /// <summary>
         /// 版本更新时间
         /// </summary>
-        public  DateTime UpdateTime { get { return m_UpdateTime; } }
+        public DateTime UpdateTime { get { return m_UpdateTime; } }
+
+        /// <summary>
+        /// Client的机器唯一签名
+        /// </summary>
+        public Guid MachineSignature { get { return m_MachineSignature; } }
 
         public MainClientVersion()
         {

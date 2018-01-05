@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils.ServNetProtocol.Model;
 
 namespace Utils.ServNetProtocol.ProtocolImpl
 {
@@ -17,6 +18,16 @@ namespace Utils.ServNetProtocol.ProtocolImpl
         public string GetSenderVersion()
         {
             return m_Version;
+        }
+
+        public void SendMessage(MessageInfo LoadBytes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AsyncSendMessage(MessageInfo loadBytes, Action callback)
+        {
+            throw new NotImplementedException();
         }
 
         #region Constructor

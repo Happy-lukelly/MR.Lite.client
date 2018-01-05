@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Sockets;
 
 namespace Utils.ServNetProtocol.Model
 {
@@ -20,5 +21,9 @@ namespace Utils.ServNetProtocol.Model
         /// 会话开始时间
         /// </summary>
         public DateTime SessionStart { get; set; }
+        /// <summary>
+        /// 服务器的socket信息
+        /// </summary>
+        public Socket ServerSocket { get; set; }
     }
 }
