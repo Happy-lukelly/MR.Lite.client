@@ -82,10 +82,13 @@ namespace UnitTest
 　　第八个世界大国——苏联，1697年，俄国沙皇彼得一世前往欧洲各国游历和学习。归来后，他用强硬手段推行了一场社会变革。从穿衣、吃饭，到科学教育、商业活动、军队建设，彼得用野蛮的方式推进了俄罗斯的文明进程，他甚至亲自审讯反对改革的太子。
 　　继承彼得改革的女皇叶卡捷琳娜二世引进欧洲的启蒙思想，重视教育，并试图起草法律，但改革无法触动农奴制。女皇的业绩最终只能表现在领土扩张上，在18世纪后期，俄罗斯成为地跨欧亚美的大国，并成为欧洲事务中的重要角色。
 　　1917年，苏维埃政权在十月革命后诞生。斯大林决定加快工业化进程，开始实施计划经济，优先发展重工业。随着两个五年计划的完成，苏联一跃成为工业强国，令当时正处于经济危机中的欧美各国惊叹不已。工业化成就的光芒掩盖了苏联高度集中的指令性计划经济模式的弊端。";
-            string patternString = "成为工业强国";
+            string patternString = "工业";
             KMPScan scan = new KMPScan();
             int res = scan.IndexOfStr(mainString, patternString);
             int[] resArr = scan.AllIndexOfStr(mainString, patternString);
+            Utils.GenericKMPScanner<char> kmpScan = new GenericKMPScanner<char>();
+            int gres = kmpScan.IndexOf(mainString.ToCharArray(), patternString.ToCharArray());
+            int[] gresArr = kmpScan.AllIndex(mainString.ToCharArray(), patternString.ToCharArray());
         }
     }
 
@@ -103,10 +106,11 @@ namespace UnitTest
             int i = 0, mainStringlength = mainString.Length,patternStringLength = patternString.Length;
             int loopCount = mainString.Length - patternStringLength;
             int result = -1;
+            //模式串遍历移动指针
+            int patternPoint = 0;
             //遍历
             while (i < loopCount)
             {
-                int patternPoint = 0;
                 //对比
                 for (; patternPoint < patternStringLength; patternPoint++)
                 {
@@ -128,6 +132,7 @@ namespace UnitTest
                     int offset = 0;
                     offset = patternPoint - nextArr[patternPoint];
                     i += offset;
+                    patternPoint = nextArr[patternPoint] == -1 ? 0 : nextArr[patternPoint];
                 }
             }
             return result;
@@ -139,10 +144,11 @@ namespace UnitTest
             int i = 0, mainStringlength = mainString.Length, patternStringLength = patternString.Length;
             int loopCount = mainString.Length - patternStringLength;
             List<int> resultList = new List<int>();
+            //模式串遍历指针 
+            int patternPoint = 0;
             //遍历
             while (i < loopCount)
             {
-                int patternPoint = 0;
                 //对比
                 for (; patternPoint < patternStringLength; patternPoint++)
                 {
@@ -157,6 +163,7 @@ namespace UnitTest
                 {
                     resultList.Add(i);
                     i += patternStringLength;
+                    patternPoint = 0;
                 }
                 else
                 //重新计算i位置
@@ -164,6 +171,7 @@ namespace UnitTest
                     int offset = 0;
                     offset = patternPoint - nextArr[patternPoint];
                     i += offset;
+                    patternPoint = nextArr[patternPoint] == -1 ? 0 : nextArr[patternPoint];
                 }
             }
             return resultList.ToArray();

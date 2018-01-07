@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractFileLogHelper.cs" />
+    <Compile Include="GenericKMPScanner.cs" />
     <Compile Include="IConfigAppender.cs" />
     <Compile Include="JsonHelper.cs" />
     <Compile Include="LogFactory.cs" />
