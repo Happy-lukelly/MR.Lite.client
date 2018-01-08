@@ -18,8 +18,12 @@ namespace Utils
         public int IndexOf(T[] mainArr, T[] patternArr)
         {
             int result = -1;
-            int mainArrLen = mainArr == null ?throw new Exception("主串为null"): mainArr.Length;
-            int patternLen = patternArr == null ? throw new Exception("模式串为null") : patternArr.Length;
+            int mainArrLen = mainArr == null ?-1: mainArr.Length;
+            int patternLen = patternArr == null ? -1: patternArr.Length;
+            if (mainArrLen == -1)
+                throw new Exception("主串为null");
+            if (patternLen == -1)
+                throw new Exception("模式串为null");
             if (mainArrLen > patternLen)
             {
                 int[] next = GetNextArr(patternArr);
@@ -62,8 +66,12 @@ namespace Utils
         /// <returns></returns>
         public int[] AllIndex(T[] mainArr, T[] patternArr)
         {
-            int mainArrLen = mainArr == null ? throw new Exception("主串为null") : mainArr.Length;
-            int patternLen = patternArr == null ? throw new Exception("模式串为null") : patternArr.Length;
+            int mainArrLen = mainArr == null ? -1 : mainArr.Length;
+            int patternLen = patternArr == null ? -1 : patternArr.Length;
+            if (mainArrLen == -1)
+                throw new Exception("主串为null");
+            if (patternLen == -1)
+                throw new Exception("模式串为null");
             List<int> resultList = new List<int>();
             if (mainArrLen > patternLen)
             {
@@ -123,7 +131,5 @@ namespace Utils
             }
             return result;
         }
-
-
     }
 }
