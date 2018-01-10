@@ -22,8 +22,8 @@ namespace Utils.ServNetProtocol.Model
         /// </summary>
         public DateTime SessionStart { get; set; }
         /// <summary>
-        /// 服务器的socket信息
+        /// 会话使用的token信息
         /// </summary>
-        public Socket ServerSocket { get; set; }
+        public string Token { get; set; }
     }
 }
