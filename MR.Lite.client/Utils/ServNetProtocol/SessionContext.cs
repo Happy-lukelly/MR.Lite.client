@@ -17,16 +17,33 @@ namespace Utils.ServNetProtocol
         protected MessageReciverFactory m_ReciverFactory;
 
         protected MessageSenderFactory m_SenderFactory;
+        /// <summary>
+        /// 关闭会话事件
+        /// </summary>
+        internal event Action<SessionContext> OnClose;
 
         SessionInfo SessionInfo;
 
+        public bool CanUse { get; private set; }
+
         #region Constructor
-        public SessionContext(MessageReciverFactory reciveFactory, MessageSenderFactory senderFactory)
+        internal SessionContext(MessageReciverFactory reciveFactory, MessageSenderFactory senderFactory)
         {
             this.m_SenderFactory = senderFactory;
             this.m_ReciverFactory = reciveFactory;
         }
-        
+
+        /// <summary>
+        /// 关闭当前与服务器的会话
+        /// </summary>
+        public void Close()
+        {
+            CanUse = false;
+            if (OnClose != null)
+            {
+                OnClose(this);
+            }
+        }
         #endregion
 
     }

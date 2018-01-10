@@ -55,6 +55,7 @@
     <Compile Include="LogFactory.cs" />
     <Compile Include="FileLogHelper.cs" />
     <Compile Include="NameLogger.cs" />
+    <Compile Include="NetHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -69,12 +70,14 @@
     <Compile Include="ServNetProtocol\MessageSenderFactory.cs" />
     <Compile Include="ServNetProtocol\Model\MessageInfo.cs" />
     <Compile Include="ServNetProtocol\Model\SendMessgeInfo.cs" />
+    <Compile Include="ServNetProtocol\Model\ServerInfo.cs" />
     <Compile Include="ServNetProtocol\Model\SessionInfo.cs" />
     <Compile Include="ServNetProtocol\Model\StreamSendMessageInfo.cs" />
     <Compile Include="ServNetProtocol\ProtocolImpl\MessageReciverReslover.cs" />
     <Compile Include="ServNetProtocol\ProtocolImpl\MessageSender.cs" />
     <Compile Include="ServNetProtocol\ProtocolImpl\MessageSenderReslover.cs" />
     <Compile Include="ServNetProtocol\ProtocolImpl\MessageReciver.cs" />
+    <Compile Include="ServNetProtocol\ServerPool.cs" />
     <Compile Include="ServNetProtocol\SessionContext.cs" />
     <Compile Include="TypeLogger.cs" />
   </ItemGroup>

@@ -13,7 +13,7 @@ namespace Utils.ServNetProtocol.ProtocolImpl
     /// </summary>
     public class MessageSender : IMessageSender
     {
-        private string m_Version;
+        private string m_Version="1.0";
         private IMessageSendReslover m_Reslover;
         public string GetSenderVersion()
         {
